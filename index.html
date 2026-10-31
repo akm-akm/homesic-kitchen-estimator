@@ -13,13 +13,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#121110; --white:#1B1A18; --frame:#ECE7DF; --grid:rgba(255,255,255,.028);
-  --ink:#F1ECE4; --ink2:#CFC8BC; --muted:#958D80;
-  --line:#2B2926; --line2:#3D3A35;
-  --accent:#C98A5B; --accent-d:#DDA67C; --accent-bg:rgba(201,138,91,.15);
-  --ok:#86B596; --warn:#E3906F;
-  --r:6px;
+  /* pastel sketch palette, derived from the illustration set */
+  --bg:#FFF8F7;          /* blush paper */
+  --paper:#FFFDFC;
+  --white:#FFFFFF;
+  --frame:#FBEFF1;       /* pale pink wash */
+  --grid:rgba(74,59,66,.03);
+  --ink:#453A40;         /* warm charcoal, the pencil line */
+  --ink2:#6B5A61;
+  --muted:#A08E94;
+  --faint:#C2B2B7;
+  --line:#F0E1E4;
+  --line2:#E4CDD3;
+  --accent:#E39AAC;      /* pastel rose */
+  --accent-d:#C4708A;    /* deeper rose for text */
+  --accent-bg:rgba(227,154,172,.16);
+  --ok:#8FB3A2;
+  --warn:#C97C6B;
+  --r:16px;
   --display:Jost,"Futura","Avenir Next",ui-sans-serif,system-ui,sans-serif;
+  --serif:Lora,Georgia,"Times New Roman",serif;
+  --hand:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -588,6 +602,311 @@ body.doc #stage{overflow-y:auto;padding-bottom:40px}
   .trust{display:none}
 }
 @media (max-height:560px){ #stage{overflow:auto} }
+
+/* ============================================================
+   LIGHT / MOBILE-FIRST THEME
+   Warm cream shell, white cards, dusty-rose accent.
+   ============================================================ */
+body{
+  background:var(--bg);
+  background-image:none;
+  color:var(--ink);
+}
+.grid-bg{display:none}
+.top{background:rgba(248,241,234,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+body.start .top{background:transparent;border-color:transparent}
+.brand b{color:var(--ink);letter-spacing:2.6px}
+.brand small{color:var(--muted);letter-spacing:1.4px}
+.stepno{margin-left:auto;font-size:11.5px;letter-spacing:.6px;color:var(--muted);white-space:nowrap}
+
+/* page heading */
+.head h1{font-family:var(--serif);font-weight:600;letter-spacing:-.6px;line-height:1.12;color:var(--ink)}
+.hint,.head .hint{color:var(--muted)}
+.eyebrow{color:var(--accent-d);letter-spacing:2px}
+
+/* option cards */
+.opt{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px;
+  box-shadow:0 10px 24px -22px rgba(58,34,37,.7);transition:border-color .15s,box-shadow .2s,transform .12s}
+.opt:hover{box-shadow:0 14px 30px -22px rgba(58,34,37,.85)}
+.opt.on{border-color:var(--accent);box-shadow:0 14px 30px -20px rgba(192,133,111,.9)}
+.opt-hit{border-radius:14px}
+.ph{background:var(--frame);border-radius:14px;overflow:hidden}
+.ph img{border-radius:14px}
+.meta{padding:11px 8px 8px;position:relative;padding-right:36px}
+.nm{color:var(--ink);font-weight:600;font-size:15px}
+.meta .ds,.ds{color:var(--muted)}
+.pr{color:var(--accent-d);font-weight:600;margin-top:3px}
+.detail{color:var(--muted)}
+.tick{position:absolute;right:14px;bottom:18px;top:auto;width:26px;height:26px;border-radius:50%;
+  background:transparent;border:1.6px solid var(--line2);color:transparent;font-size:12px;
+  display:grid;place-items:center}
+.opt.on .tick{background:var(--accent);border-color:var(--accent);color:#fff}
+.opt.on .nm{color:var(--ink)}
+.zoom{background:rgba(255,255,255,.9);color:var(--ink);border:0;box-shadow:0 2px 8px -4px rgba(58,34,37,.5)}
+
+/* segmented + finish cards */
+.segbtn{background:#fff;border:1px solid var(--line2);color:var(--ink2);border-radius:999px}
+.segbtn.on{background:var(--accent-bg);border-color:var(--accent);color:var(--ink)}
+.fcard{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.fcard.on{border-color:var(--accent);box-shadow:0 12px 26px -20px rgba(192,133,111,.9)}
+.fimg{border-radius:12px;overflow:hidden;background:var(--frame)}
+.fname{color:var(--ink)}
+.frate{color:var(--accent-d)}
+
+/* buttons + chips */
+.btn{background:var(--accent);border:1px solid var(--accent);color:#fff;border-radius:999px;font-weight:600}
+.btn:hover:not(:disabled){background:var(--accent-d);border-color:var(--accent-d)}
+.btn:disabled{background:#fff;color:var(--faint);border-color:var(--line2)}
+.btn.line{background:#fff;color:var(--ink);border-color:var(--line2)}
+.btn.line:hover:not(:disabled){border-color:var(--ink2);background:#fff}
+.chip{background:#fff;border:1px solid var(--line2);color:var(--ink2);border-radius:999px}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+.linkbtn{color:var(--accent-d)}
+
+/* dock */
+.dock-bar{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:999px;padding:6px;
+  box-shadow:0 22px 48px -30px rgba(58,34,37,.55);backdrop-filter:blur(16px) saturate(1.2)}
+.dock-btn{background:var(--frame);color:var(--ink);border:1px solid var(--line);width:42px;height:42px;border-radius:50%;font-size:15px}
+.dock-btn:hover:not(:disabled){background:#fff}
+.dock-cur{color:var(--ink)}
+.dock-cur .dots i{background:var(--line2)}
+.dock-cur .dots i.done{background:var(--accent)}
+.dock-cur .dots i.cur{background:var(--ink)}
+.dock-sep{background:var(--line)}
+.est span{color:var(--muted);font-size:9px;letter-spacing:1.3px;text-transform:uppercase}
+.est b{color:var(--ink);font-family:var(--display);font-size:15px}
+.dock-go{flex:none;padding:12px 20px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);
+  color:#fff;font-family:var(--display);font-size:14px;letter-spacing:.3px;transition:background .15s,border-color .15s,opacity .15s}
+.dock-go:hover:not(:disabled){background:var(--accent-d);border-color:var(--accent-d)}
+.dock-go:disabled{background:#fff;color:var(--faint);border-color:var(--line2)}
+.dock-menu{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(58,34,37,.6)}
+.dock-menu button{color:var(--ink2)}
+.dock-menu button:hover{background:var(--frame);color:var(--ink)}
+.dock-menu button.cur{background:var(--accent-bg)}
+.dock-menu .n{color:var(--muted)}
+
+/* details gate */
+.gate{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 70px -50px rgba(58,34,37,.6)}
+.gate h1{font-family:var(--serif);color:var(--ink)}
+.gate .sub{color:var(--muted)}
+.field label{color:var(--ink2)}
+.field input{border:1px solid var(--line2);border-radius:12px;background:#fff;color:var(--ink)}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.opt-badge{background:var(--frame);color:var(--muted)}
+.fine{color:var(--muted)}
+
+/* quote card */
+.qcard{background:#fff;border:1px solid var(--line);box-shadow:0 30px 70px -55px rgba(58,34,37,.6)}
+.qc-eyebrow{color:var(--accent-d)}
+.qc-sub{color:var(--muted)}
+.qc-picks dl div,.qc-bill li{border-color:var(--line)}
+.qc-bill li span i{color:var(--muted)}
+.qc-sum.total{border-top-color:var(--ink)}
+.qc-pay div{background:var(--frame);border-color:var(--line)}
+.qc-pay div:first-child{background:#FBEADF;border-color:#EFD3C4}
+.qc-dl{background:linear-gradient(180deg,#CB8E76 0%,#B5765F 100%);
+  box-shadow:0 10px 22px -12px rgba(181,118,95,.9),inset 0 1px 0 rgba(255,255,255,.35)}
+.qc-note{color:var(--muted)}
+
+/* feedback */
+.fb{background:#fff;border:1px solid var(--line);box-shadow:0 30px 70px -55px rgba(58,34,37,.6)}
+.fb-head h2{font-family:var(--serif);color:var(--ink)}
+.fb-head .hint{color:var(--muted)}
+.fbchip{background:#fff;border:1px solid var(--line2);color:var(--ink2)}
+.fbchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.fb-row span{color:var(--muted)}
+.fb-gap.ok{color:#567a52}
+.fb-gap.warn{color:var(--warn)}
+.fb-status{color:var(--muted)}
+
+/* start screen: cream page, photo as a soft hero */
+body.start .backdrop img{filter:saturate(1.02) brightness(1.02)}
+.backdrop::after{background:linear-gradient(180deg,rgba(248,241,234,0) 0%,rgba(248,241,234,.22) 34%,rgba(248,241,234,.86) 58%,#F8F1EA 70%)}
+body:not(.start) .backdrop::after{background:linear-gradient(180deg,rgba(248,241,234,.82) 0%,rgba(248,241,234,.66) 40%,rgba(248,241,234,.9) 100%)}
+.hero h1,.start h1{color:var(--ink);font-family:var(--serif);letter-spacing:-1px}
+.lead{color:var(--ink2)}
+.trust li{color:var(--ink2)}
+.trust li::before{color:var(--accent)}
+
+/* one CTA per screen: the dock carries it */
+.head .head-action .btn{display:none}
+
+/* card image is a banner, not a square: less catalogue chrome, more photo */
+.ugrid .ph,.tgrid .ph{aspect-ratio:4/3}
+.ugrid .ph img,.tgrid .ph img{object-position:50% 38%}
+
+/* quiz pages sit on plain cream; only Start carries the hero photo */
+body:not(.start) .backdrop{opacity:0;visibility:hidden}
+
+/* photo viewer keeps a dark room so images pop */
+.photo-view{background:rgba(24,15,16,.94)}
+.pv-close{border-color:rgba(255,255,255,.25);color:#fff}
+
+
+/* --- details gate on the light shell --- */
+.gate .field input{background:#fff;border-color:var(--line2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.gate .field input:focus{border-color:var(--accent);outline:2px solid var(--accent-bg)}
+.gate .field input::placeholder{color:var(--faint)}
+.gate .btn,.gate .btn.lg{background:var(--accent);border-color:var(--accent);color:#fff}
+.gate .btn:hover{background:var(--accent-d);border-color:var(--accent-d)}
+.gate .btn:disabled{background:#fff;color:var(--faint);border-color:var(--line2)}
+.planbox,.plan,.drop,.dropzone{background:var(--frame) !important;border:1px dashed var(--line2) !important;color:var(--ink2) !important}
+.planbox *,.plan *,.drop *,.dropzone *{color:inherit}
+
+/* --- "no photo" tile: light, not a dark block --- */
+.ph-none,.ph-none span{
+  background:var(--frame);
+  color:var(--muted);
+  border:1px dashed var(--line2);
+  border-radius:12px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  font-size:11px;
+}
+
+/* --- soft counters and steppers --- */
+.qtybar{background:var(--frame);border-radius:12px}
+.qty button{background:#fff;border:1px solid var(--line2);color:var(--ink)}
+.qty span{color:var(--ink)}
+
+/* --- compare table --- */
+.cmpwrap{background:#fff;border:1px solid var(--line);border-radius:14px}
+.cmpwrap th,.cmpwrap td{border-color:var(--line);color:var(--ink2)}
+.cmpwrap thead th{color:var(--muted)}
+
+/* --- misc text --- */
+.delivery{color:var(--muted)}
+.doc-foot{color:var(--muted)}
+
+
+/* --- floor plan control on the light shell --- */
+.upload{background:var(--frame);border:1px dashed var(--line2);color:var(--ink)}
+.upload:hover{background:#fff;border-color:var(--accent)}
+.upload.has-file{background:#fff;border-style:solid;border-color:var(--line)}
+.up-ico{background:var(--accent-bg);color:var(--accent-d)}
+.up-meta b{color:var(--ink)}
+.up-meta small{color:var(--muted)}
+.pdfbadge{background:var(--accent-bg);color:var(--accent-d)}
+.upload.has-file img{border-radius:8px}
+
+/* --- skip chips sit quietly above the group --- */
+.chip{font-size:12.5px}
+
+/* --- error text --- */
+.err{color:var(--warn)}
+
+
+/* ---------- hand-sketch skin ---------- */
+body{
+  background:var(--bg);
+  background-image:
+    radial-gradient(rgba(227,154,172,.06) 1px, transparent 1px),
+    radial-gradient(rgba(196,112,138,.04) 1px, transparent 1px);
+  background-size:18px 18px, 28px 28px;
+  background-position:0 0, 9px 9px;
+}
+.eyebrow,.qc-eyebrow,.calc-step h4,.pbrand small{letter-spacing:1.6px}
+.eyebrow{font-family:var(--hand);font-size:12.5px;letter-spacing:.6px;color:var(--accent-d);text-transform:none}
+.head h1{font-family:var(--serif)}
+.hint{font-size:14px}
+.top{background:rgba(255,248,247,.9);border-bottom:1px solid var(--line)}
+.stepno{font-family:var(--hand);font-size:13px;letter-spacing:.3px;color:var(--accent-d)}
+.opt{background:var(--white);border:1px solid var(--line2);box-shadow:0 10px 22px -20px rgba(196,112,138,.55)}
+.opt.on{border-color:var(--accent);box-shadow:0 14px 26px -18px rgba(227,154,172,.9)}
+.ph{background:var(--frame)}
+.tick{border-color:var(--line2)}
+.opt.on .tick{background:var(--accent);border-color:var(--accent);color:#fff}
+.pr{color:var(--accent-d)}
+.btn{background:var(--accent);border-color:var(--accent);color:#4A3B42}
+.btn:hover:not(:disabled){background:var(--accent-d);border-color:var(--accent-d);color:#fff}
+.dock-bar{background:rgba(255,255,255,.96);border-color:var(--line2);box-shadow:0 22px 44px -30px rgba(196,112,138,.55)}
+.dock-go{background:var(--accent);border-color:var(--accent);color:#4A3B42}
+.dock-go:hover:not(:disabled){background:var(--accent-d);border-color:var(--accent-d);color:#fff}
+.dock-go:disabled{background:#fff;color:var(--faint);border-color:var(--line2)}
+.dock-btn{background:var(--frame);border-color:var(--line2);color:var(--ink)}
+.segbtn{border-color:var(--line2)}
+.segbtn.on{background:var(--accent-bg);border-color:var(--accent);color:var(--ink)}
+.chip{border-color:var(--line2);color:var(--ink2)}
+.qcard{background:var(--paper);border-color:var(--line2)}
+.qc-dl{background:linear-gradient(180deg,#EDA9BA 0%,#D9839B 100%);color:#fff;
+  box-shadow:0 10px 20px -12px rgba(196,112,138,.9),inset 0 1px 0 rgba(255,255,255,.5)}
+.qc-pay div{background:var(--frame);border-color:var(--line2)}
+.qc-pay div:first-child{background:#FCE4EA;border-color:#F2C9D3}
+.qc-pay b{color:var(--accent-d)}
+.qc-pay i{color:var(--ink)}
+.fb{background:var(--white);border-color:var(--line2)}
+.fbchip.on{background:var(--accent);border-color:var(--accent);color:#4A3B42}
+.gate{background:var(--paper);border-color:var(--line2)}
+.gate .field input{background:#fff;border-color:var(--line2)}
+.gate .btn{background:var(--accent);border-color:var(--accent);color:#4A3B42}
+.upload{background:var(--frame);border-color:var(--line2)}
+.up-ico{background:var(--accent-bg);color:var(--accent-d)}
+.pdfbadge{background:var(--accent-bg);color:var(--accent-d)}
+.cmpwrap{background:var(--white);border-color:var(--line2)}
+.ph-none{background:var(--frame);color:var(--muted);border-color:var(--line2)}
+
+
+/* counted steps (drawers) as a clean list on the light shell */
+.grid.row .opt{display:grid;grid-template-columns:92px 1fr;grid-template-areas:"ph meta" "ph qty";
+  gap:6px 14px;align-items:center;padding:10px;position:relative}
+.grid.row .opt-hit{display:contents}
+.grid.row .ph{grid-area:ph;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:var(--frame)}
+.grid.row .ph img{width:100%;height:100%;object-fit:cover}
+.grid.row .meta{grid-area:meta;position:static;left:auto;right:auto;bottom:auto;background:none;
+  padding:0 34px 0 0;gap:2px;z-index:auto}
+.grid.row .nm{text-shadow:none;color:var(--ink);font-size:15px}
+.grid.row .nm em{background:var(--accent-bg);color:var(--accent-d)}
+.grid.row .ds{opacity:1;color:var(--muted);white-space:normal;line-height:1.35}
+.grid.row .detail{display:none}
+.grid.row .tick{top:12px;right:12px;bottom:auto}
+.grid.row .qtybar{grid-area:qty;margin:0;padding:0;background:transparent;border:0}
+.grid.row .qtybar .qlabel{font-size:10px;letter-spacing:1.2px;color:var(--muted)}
+.grid.row .qty{border:1px solid var(--line2);border-radius:999px;background:#fff}
+
+
+/* ---------- inline editor sheet ---------- */
+.qc-picks dl div{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center;position:relative;padding-right:0}
+.qc-picks dt{grid-column:1/-1}
+.qc-picks dd{grid-column:1;min-width:0}
+.qc-edit{grid-column:2;align-self:center;border:1px solid var(--line2);background:#fff;color:var(--accent-d);
+  font-size:10px;letter-spacing:.6px;text-transform:uppercase;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.qc-edit:hover{border-color:var(--accent);background:var(--accent-bg)}
+
+.sheet[hidden]{display:none}
+.sheet{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;background:rgba(58,47,53,0);transition:background .2s}
+.sheet.in{background:rgba(58,47,53,.34)}
+.sheet-panel{width:100%;max-width:520px;max-height:82vh;display:flex;flex-direction:column;background:var(--paper);
+  border-radius:22px 22px 0 0;box-shadow:0 -24px 60px -30px rgba(58,47,53,.55);transform:translateY(14px);opacity:.6}
+.sheet.in .sheet-panel{transform:none;opacity:1;transition:transform .22s var(--ease),opacity .22s}
+.sheet-panel header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px;border-bottom:1px solid var(--line)}
+.sheet-panel header b{font-family:var(--serif);font-size:20px;color:var(--ink)}
+.sheet-x{width:32px;height:32px;border-radius:50%;border:1px solid var(--line2);background:#fff;color:var(--ink2)}
+.sheet-list{overflow:auto;padding:12px 16px 6px;display:grid;gap:8px}
+.sheet-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.sheet-grid.round{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sheet-opt{display:grid;grid-template-columns:1fr auto 22px;align-items:center;gap:10px;width:100%;
+  padding:12px 14px;border:1px solid var(--line2);border-radius:14px;background:#fff;text-align:left}
+.sheet-opt.on{border-color:var(--accent);background:var(--accent-bg)}
+.so-name{font-size:13.5px;color:var(--ink);font-weight:500}
+.so-price{font-size:12px;color:var(--accent-d);font-variant-numeric:tabular-nums;white-space:nowrap}
+.so-tick{width:20px;height:20px;border-radius:50%;border:1.4px solid var(--line2);display:grid;place-items:center;font-size:11px;color:transparent}
+.sheet-opt.on .so-tick{background:var(--accent);border-color:var(--accent);color:#fff}
+.sheet-sub{padding:10px 2px 2px;display:flex;align-items:center;gap:10px}
+.ss-label{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.sheet-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:12px 14px;
+  border:1px solid var(--line2);border-radius:14px;background:#fff}
+.sheet-row.on{border-color:var(--accent);background:var(--accent-bg)}
+.sr-name{display:flex;flex-direction:column;gap:2px;font-size:13.5px;color:var(--ink);font-weight:500}
+.sr-name i{font-style:normal;font-size:11.5px;color:var(--muted);font-weight:400}
+.sr-price{font-size:12px;color:var(--accent-d)}
+.sheet-row .qty{display:flex;align-items:center;border:1px solid var(--line2);border-radius:999px;overflow:hidden;background:#fff}
+.sheet-row .qty button{width:34px;height:32px;border:0;background:#fff;color:var(--ink);font-size:16px}
+.sheet-row .qty b{min-width:26px;text-align:center;font-size:13px;color:var(--ink)}
+.sheet-panel footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px 18px;border-top:1px solid var(--line)}
+#sheetTotal{font-family:var(--display);font-size:15px;color:var(--ink)}
+body.sheet-open{overflow:hidden}
+@media (min-width:640px){ .sheet{align-items:center} .sheet-panel{border-radius:20px} }
+
 </style>
 </head>
 <body>
@@ -599,6 +918,7 @@ body.doc #stage{overflow-y:auto;padding-bottom:40px}
         <img class="brand-logo" src="assets/logo-mark.png" alt="">
         <span><b>HOMESIC</b><small>Interiors &amp; Design</small></span>
       </a>
+      <span class="stepno" id="stepNo"></span>
     </div>
   </header>
   <main id="stage" aria-live="polite"></main>
@@ -611,12 +931,22 @@ body.doc #stage{overflow-y:auto;padding-bottom:40px}
       <span class="dots" id="dots"></span><span id="dockStep"></span>
     </button>
     <span class="dock-sep"></span>
-    <div class="est" id="est"><span id="estLbl">Estimate</span><b id="total">—</b></div>
+    <div class="est" id="est"><span id="estLbl">Estimated price</span><b id="total">—</b></div>
+    <span class="dock-sep"></span>
+    <button class="dock-go" id="dockGo" type="button">Continue</button>
   </div>
 </nav>
 
 <form id="wfForm" method="POST" target="wfTarget" style="display:none"></form>
 <iframe id="wfTarget" name="wfTarget" title="Form delivery" aria-hidden="true" style="position:absolute;width:0;height:0;border:0;visibility:hidden"></iframe>
+
+<figure class="sheet" id="sheet" hidden>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <header><b id="sheetTitle">Change</b><button class="sheet-x" type="button" data-act="close-sheet" aria-label="Close">✕</button></header>
+    <div class="sheet-list" id="sheetList"></div>
+    <footer><span id="sheetTotal"></span><button class="btn line" type="button" data-act="close-sheet">Done</button></footer>
+  </div>
+</figure>
 
 <figure class="photo-view" id="photoView" hidden>
   <button class="pv-close" type="button" data-act="close-view" aria-label="Close photo">✕</button>
@@ -634,15 +964,21 @@ body.doc #stage{overflow-y:auto;padding-bottom:40px}
    Handles and hinges are per piece. Lighting is per running ft.
    ============================================================ */
 const CONFIG = {
-  whatsapp: '',        // studio WhatsApp number, digits with country code
-  // Free form services: paste one endpoint here (no backend needed).
-  // Formspree:  https://formspree.io/f/your-form-id
-  // Web3Forms:  https://api.web3forms.com/submit  (+ access key below)
+  // ---------------------------------------------------------------
+  // LEADS - the two values the studio must set
+  // ---------------------------------------------------------------
+  // 1. Paste your own Web3Forms access key here (free at web3forms.com,
+  //    sign in with the studio email and copy the key). Every quote is
+  //    emailed to the address that key belongs to.
+  leadAccessKey: 'd411e48a-e577-490c-993e-819d53082e91',
+  // 2. Studio WhatsApp number, digits with country code, e.g. 919876543210.
+  //    Used by "Share on WhatsApp" and as the fallback when email fails.
+  whatsapp: '',
+  // Endpoint - leave as is for Web3Forms. Formspree also works:
+  // https://formspree.io/f/your-form-id
   leadEndpoint: 'https://api.web3forms.com/submit',
-  leadAccessKey: 'd411e48a-e577-490c-993e-819d53082e91',   // Web3Forms access key
-  leadCompany: 'Homesic',     // shown on the quote / used as email subject by some services
+  leadCompany: 'Homesic',
   // Calendly-style site-visit link; empty hides the button.
-  // e.g. https://calendly.com/your-studio/site-visit
   calendly: ''
 };
 const RATES = {
@@ -653,9 +989,9 @@ const RATES = {
     bwp:   { laminate: 1900, acrylic: 2100, membrane: 2800, pu: 2800, veneer: 3200, rattan: 3200 }
   },
   glass: 2100,                                                // per sq ft, profile shutters
-  handle:     { profile: 600, bar: 400, groove: 150, knob: 400 }, // per door
-  counter:    { granite: 350, quartz: 650, tile: 500, marble: 700 }, // per sq ft
-  backsplash: { ceramic: 150, acrylic: 650, mosaic: 250, paint: 50 },    // per sq ft
+  handle:     { profile: 250, standard: 100, premium: 250, designer: 500, groove: 0 }, // per door
+  counter:    { granite: 700, quartz: 1100, install: 300, existing: 0 }, // per sq ft
+  backsplash: { tiles: 200, existing: 0 },    // per sq ft
   // Sink is a material x type price, quoted per unit (like board x finish).
   sink: {
     ss:      { single: 7200,  double: 15600, doubletray: 21600, tray: 12000 },
@@ -664,11 +1000,12 @@ const RATES = {
     ceramic: { single: 18000, double: 33600, doubletray: 46200, tray: 30600 }
   },
   pvc:        { leg: 50, skirting: 3000 },                    // per leg / per strip
-  faucet:     { lever: 4200, pullout: 7200, wall: 1800, double: 3600 }, // per faucet
+  faucet:     { standard: 1000, premium: 2000, designer: 4000 }, // per faucet
   // Hinge price depends on the function only; the brand is a preference, not a price.
-  hingeFn:    { standard: 250, soft: 400, push: 600 },       // per hinge
-  lighting:   { internal: 145, external: 520, complete: 700, outlets: 260 }, // per running ft
-  accessory:  { magic: 21600, wicker: 5400, cutlery: 1440, bottle: 3600 }
+  hingeFn:    { soft: 300, push: 600 },       // per hinge
+  drawers:    { normal: 2000, jali: 3000, tandem: 4000 },     // per drawer
+  lighting:   { standard: 10000, premium: 20000, elite: 30000 }, // per project
+  accessoryRemoved: true
 };
 const DESIGN_PCT = 0.05;
 const DOOR_WIDTH = 2;        // ft
@@ -744,22 +1081,21 @@ const FINISHES = [
   { id:'rattan',   name:'Rattan',   ds:'Woven texture', img:'finishes/rattan.jpg' }
 ];
 const HANDLES = [
-  { id:'profile', name:'Profile',  ds:'G-profile aluminium channel', img:'handles/profile.jpg', tag:'Popular' },
-  { id:'bar',     name:'Bar pull', ds:'Slim metal bar handle', img:'handles/bar.jpg' },
-  { id:'groove',  name:'Groove',   ds:'Recessed finger pull', img:'handles/groove.jpg' },
-  { id:'knob',    name:'Knob',     ds:'Round wood knob', img:'handles/knob.jpg' }
+  { id:'profile',  name:'Profile',  ds:'G-profile aluminium channel', img:'handles/profile.jpg', tag:'Popular' },
+  { id:'standard', name:'Standard', ds:'Everyday pull handle', img:'handles/bar.jpg' },
+  { id:'premium',  name:'Premium',  ds:'Longer, heavier pull', img:'handles/groove.jpg' },
+  { id:'designer', name:'Designer', ds:'Statement handle', img:'handles/knob.jpg' },
+  { id:'groove',   name:'Groove',   ds:'Recessed finger pull, included', img:'handles/profile.jpg' }
 ];
 const COUNTERS = [
-  { id:'granite', name:'Granite',   ds:'Natural stone', img:'card-counter-granite.jpg', tag:'Popular' },
-  { id:'quartz',  name:'Quartz',    ds:'Non-porous', img:'card-counter-quartz.jpg' },
-  { id:'tile',    name:'Full body', ds:'Full-body tile', img:'card-counter-full-body-tile.jpg' },
-  { id:'marble',  name:'Marble',    ds:'Polished natural stone', img:'card-counter-granite.jpg' }
+  { id:'granite',  name:'Granite',           ds:'Natural stone', img:'card-counter-granite.jpg', tag:'Popular' },
+  { id:'quartz',   name:'Quartz',            ds:'Non-porous', img:'card-counter-quartz.jpg' },
+  { id:'install',  name:'Only installation', ds:'You supply the slab, we fit it', img:'card-counter-full-body-tile.jpg' },
+  { id:'existing', name:'Already existing',  ds:'Keeping the current worktop' }
 ];
 const BACKSPLASH = [
-  { id:'ceramic', name:'Ceramic', ds:'Glazed tile', img:'backsplash-ceramic.jpg', tag:'Popular' },
-  { id:'acrylic', name:'Acrylic', ds:'Seamless panel', img:'backsplash-acrylic.jpg' },
-  { id:'mosaic',  name:'Mosaic',  ds:'Small-format tiles', img:'backsplash-mosaic.jpg' },
-  { id:'paint',   name:'Paint',   ds:'Brushed lacquer finish', img:'card-spray-painted.jpg' }
+  { id:'tiles',    name:'Tiles',            ds:'Glazed tile splashback', img:'backsplash-ceramic.jpg', tag:'Popular' },
+  { id:'existing', name:'Already existing', ds:'Keeping the current tiles' }
 ];
 const SINK_MATERIALS = [
   { id:'ss',      name:'Stainless steel', ds:'Hygienic and easy to clean', img:'sinks/material-ss.jpg', tag:'Popular' },
@@ -774,34 +1110,30 @@ const SINK_TYPES = [
   { id:'tray',       name:'Worktop sink',           ds:'Bowl with a draining board', img:'sinks/type-doubletray.jpg' }
 ];
 const FAUCETS = [
-  { id:'lever',   name:'Single handle', ds:'One lever for flow and heat', img:'faucets/single.jpg', tag:'Popular' },
-  { id:'pullout', name:'Pull out',      ds:'Flexible spray head', img:'faucets/pullout.jpg' },
-  { id:'wall',    name:'Wall tap',      ds:'Mounted on the backsplash', img:'faucets/wall.jpg' },
-  { id:'double',  name:'Double handle', ds:'Separate hot and cold', img:'faucets/double.jpg' }
+  { id:'standard', name:'Standard', ds:'Single lever, everyday use', img:'faucets/single.jpg', tag:'Popular' },
+  { id:'premium',  name:'Premium',  ds:'Two-handle, brass body', img:'faucets/double.jpg' },
+  { id:'designer', name:'Designer', ds:'Pull-out spray head', img:'faucets/pullout.jpg' }
 ];
 const HINGE_BRANDS = [
-  { id:'hettich',  name:'Hettich',  ds:'German-engineered precision', img:'hardware-hettich.jpg', tag:'Popular' },
-  { id:'innotech', name:'Innotech', ds:'Strong drawer systems', img:'hardware-innotech.jpg' },
-  { id:'godrej',   name:'Godrej',   ds:'Reliable everyday hardware', img:'hardware-godrej.jpg' },
-  { id:'ebco',     name:'Ebco',     ds:'Value hardware, widely stocked', img:'hardware-ebco.jpg' }
+  { id:'hettich', name:'Hettich', ds:'German-engineered precision', img:'hardware-hettich.jpg', tag:'Popular' },
+  { id:'moda',    name:'Moda',    ds:'Soft-close hinge' },
+  { id:'doorset', name:'Doorset', ds:'Value hardware, widely stocked' }
 ];
 const HINGE_FUNCTIONS = [
-  { id:'standard', name:'Standard',     ds:'Everyday hinges', img:'hardware-standard.jpg' },
-  { id:'soft',     name:'Soft-close',   ds:'No slamming', img:'hardware-soft-close.jpg', tag:'Popular' },
-  { id:'push',     name:'Push-to-open', ds:'Handle-free fronts', img:'hardware-push-open.jpg'}
+  { id:'soft', name:'Soft-close',   ds:'No slamming', img:'hardware-soft-close.jpg', tag:'Popular' },
+  { id:'push', name:'Push-to-open', ds:'Handle-free fronts', img:'hardware-push-open.jpg' }
 ];
 const LIGHTING = [
-  { id:'internal', name:'Internal',                   ds:'Inside cupboards', img:'lighting-internal.jpg', tag:'Popular' },
-  { id:'external', name:'Internal + external + outlets', ds:'Under-cabinet task light and points', img:'lighting-internal-external-outlets.jpg' },
-  { id:'complete', name:'Complete + concealed',       ds:'Ambient, task and accent lighting', img:'lighting-complete.jpg' },
-  { id:'outlets',  name:'Only outlets',               ds:'Power points, no lights', img:'lighting-outlets.jpg' }
+  { id:'standard', name:'Standard', ds:'Internal lighting only', img:'lighting-internal.jpg', tag:'Popular' },
+  { id:'premium',  name:'Premium',  ds:'Internal + external + outlets', img:'lighting-internal-external-outlets.jpg' },
+  { id:'elite',    name:'Elite',    ds:'Complete lighting + concealed outlets', img:'lighting-complete.jpg' }
 ];
-const ACCESSORIES = [
-  { id:'magic',   name:'Magic corner',   ds:'Pull-out corner shelves', img:'accessory-magic-corner.jpg' },
-  { id:'wicker',  name:'Wicker basket',  ds:'Ventilated produce storage', img:'accessory-wicker-basket.jpg' },
-  { id:'cutlery', name:'Cutlery tray',   ds:'Organised compartments', img:'accessory-cutlery-tray.jpg' },
-  { id:'bottle',  name:'Bottle pull-out', ds:'Slim pull-out rack', img:'accessory-bottle-pullout.jpg' }
+const DRAWERS = [
+  { id:'normal', name:'Normal channel',        ds:'Drawer box on standard channels', img:'storage/unit-base.jpg' },
+  { id:'jali',   name:'Jali + channels',       ds:'Wire-basket drawer on channels', img:'storage/unit-wall.jpg' },
+  { id:'tandem', name:'Innotech tandem',       ds:'Soft-close tandem runners', img:'storage/unit-tall.jpg', tag:'Popular' }
 ];
+
 
 /* ============================================================
    STATE
@@ -811,8 +1143,8 @@ const LEADS = 'homesic.leads.v1';
 const DEFAULTS = {
   units: { base:true, wall:true, loft:true, tall:false, fridge:false },
   board:'hdhmr', finish:'laminate', handle:'profile', counter:'granite',
-  backsplash:'ceramic', sinkMaterial:'ss', sinkType:'single',
-  faucet:'lever', hingeBrand:'innotech', hingeFunction:'soft', lighting:'internal'
+  backsplash:'tiles', sinkMaterial:'ss', sinkType:'single',
+  faucet:'standard', hingeBrand:'hettich', hingeFunction:'soft', lighting:'standard'
 };
 const fresh = () => ({
   step: 0, layout:'', l:'', b:'', h:'9',
@@ -820,7 +1152,7 @@ const fresh = () => ({
   board:'', finish:'', handle:'', counter:'', backsplash:'',
   sinkMaterial:'', sinkType:'', faucet:'',
   hingeBrand:'', hingeFunction:'', lighting:'',
-  acc: { magic:0, wicker:0, cutlery:0, bottle:0 },
+  drawers: { normal:0, jali:0, tandem:0 },
   skip: { counter:false, backsplash:false, sink:false, faucet:false, lighting:false },
   glass: false,
   fb: { tags: [], budget: null, touched: false },
@@ -832,7 +1164,7 @@ try {
   if(saved) Object.assign(state, saved);
 } catch(e) {}
 state.units = Object.assign({ ...DEFAULTS.units }, state.units || {});
-state.acc = Object.assign({ magic:0, wicker:0, cutlery:0, bottle:0 }, state.acc || {});
+state.drawers = Object.assign({ normal:0, jali:0, tandem:0 }, state.drawers || {});
 state.skip = Object.assign({ counter:false, backsplash:false, sink:false, faucet:false, lighting:false }, state.skip || {});
 state.glass = state.glass === true;
 state.fb = Object.assign({ tags: [], budget: null, touched: false }, state.fb || {});
@@ -944,19 +1276,19 @@ function price(s = state){
   const faucetAmt = skip.faucet ? 0 : RATES.faucet[faucet.id] * FAUCET_COUNT;
   const SP  = Math.round(sinkAmt + faucetAmt);
   const HiP = Math.round(hinges * RATES.hingeFn[hFn.id]);
-  const LP  = skip.lighting ? 0 : Math.round(info.grossBase * RATES.lighting[light.id]);
-  const acc = s.acc || {};
-  let AP = 0;
-  const accItems = [];
-  ACCESSORIES.forEach(a => {
-    const q = Math.max(0, Math.round(Number(acc[a.id]) || 0));
+  const LP  = skip.lighting ? 0 : Math.round(RATES.lighting[light.id]);
+  const dwr = s.drawers || {};
+  let DP = 0;
+  const dwrItems = [];
+  DRAWERS.forEach(d => {
+    const q = Math.max(0, Math.round(Number(dwr[d.id]) || 0));
     if(q > 0){
-      const amount = q * RATES.accessory[a.id];
-      AP += amount;
-      accItems.push({ a, q, amount });
+      const amount = q * RATES.drawers[d.id];
+      DP += amount;
+      dwrItems.push({ d, q, amount });
     }
   });
-  AP = Math.round(AP);
+  DP = Math.round(DP);
 
   // Glass profile shutters replace the finish on the wall units.
   const glassArea = glassOn ? wallArea : 0;
@@ -967,7 +1299,7 @@ function price(s = state){
   const skirt = baseOn ? Math.ceil(info.base / 10) : 0;
   const PVCP = Math.round(legs * RATES.pvc.leg + skirt * RATES.pvc.skirting);
 
-  const construction = CP + GL + PVCP + HP + CTP + BSP + SP + HiP + LP + AP;
+  const construction = CP + GL + PVCP + HP + CTP + BSP + SP + HiP + LP + DP;
   const design = Math.round(construction * DESIGN_PCT);
   const total = construction + design;
 
@@ -982,8 +1314,8 @@ function price(s = state){
   if(!skip.sink) add('Sink · ' + sinkMat.name + ' · ' + sinkT.name, 1, 'set', sinkRate, Math.round(sinkRate));
   if(!skip.faucet) add(faucet.name, FAUCET_COUNT, 'nos', RATES.faucet[faucet.id], Math.round(RATES.faucet[faucet.id] * FAUCET_COUNT));
   add('Hinges · ' + hBrand.name + ' ' + hFn.name, hinges, 'nos', RATES.hingeFn[hFn.id], HiP);
-  if(!skip.lighting) add(light.name + ' lighting', info.grossBase, 'rft', RATES.lighting[light.id], LP);
-  accItems.forEach(({ a, q, amount }) => add(a.name, q, 'nos', RATES.accessory[a.id], amount));
+  if(!skip.lighting) add(light.name + ' lighting', 1, 'project', RATES.lighting[light.id], LP);
+  dwrItems.forEach(({ d, q, amount }) => add(d.name + ' drawers', q, 'nos', RATES.drawers[d.id], amount));
   add('Design charge (' + Math.round(DESIGN_PCT * 100) + '%)', 1, '', design, design);
 
   return {
@@ -991,7 +1323,7 @@ function price(s = state){
     board: spec.board, finish: spec.finish, woodRate: spec.rate, glassOn: !!(s.glass && wallOn), glass: GL, glassArea,
     handle, counter, splash, sinkMat, sinkT, faucet, hBrand, hFn, light,
     lines, construction, design, total,
-    breakdown: { CP, GL, PVCP, HP, CTP, BSP, SP, HiP, LP, AP },
+    breakdown: { CP, GL, PVCP, HP, CTP, BSP, SP, HiP, LP, DP },
     assumed: !hasSize(s)
   };
 }
@@ -1033,16 +1365,16 @@ function optLabel(step, o){
       return '≈ ' + inr(up) + ' · 4 sq ft';
     }
     case 'board': return inr(RATES.woodwork[o.id].laminate) + ' / sq ft';
-    case 'handle': return inr(RATES.handle[o.id]) + ' each';
-    case 'counter': return inr(RATES.counter[o.id]) + ' / sq ft';
-    case 'backsplash': return inr(RATES.backsplash[o.id]) + ' / sq ft';
+    case 'handle': return RATES.handle[o.id] ? inr(RATES.handle[o.id]) + ' each' : 'Included';
+    case 'counter': return RATES.counter[o.id] ? inr(RATES.counter[o.id]) + ' / sq ft' : 'Included';
+    case 'backsplash': return RATES.backsplash[o.id] ? inr(RATES.backsplash[o.id]) + ' / sq ft' : 'Included';
     case 'sinkMaterial': return inr(RATES.sink[o.id][(state.sinkType || DEFAULTS.sinkType)]) + ' / sink';
     case 'sinkType': return inr(RATES.sink[(state.sinkMaterial || DEFAULTS.sinkMaterial)][o.id]);
     case 'faucet': return inr(RATES.faucet[o.id]);
     case 'hingeBrand': return inr(RATES.hingeFn[fn.id]) + ' / hinge';
     case 'hingeFunction': return inr(RATES.hingeFn[o.id]) + ' / hinge';
-    case 'lighting': return inr(RATES.lighting[o.id]) + ' / ft';
-    case 'accessories': return inr(RATES.accessory[o.id]) + ' each';
+    case 'lighting': return inr(RATES.lighting[o.id]) + ' / project';
+    case 'drawers': return inr(RATES.drawers[o.id]) + ' each';
   }
   return '';
 }
@@ -1072,10 +1404,11 @@ function detailLines(step, o){
     case 'faucet': return [inr(RATES.faucet[o.id]) + ' each', FAUCET_COUNT + ' faucet in this quote'];
     case 'hingeBrand': return [inr(RATES.hingeFn[fn.id]) + ' per hinge', p.hinges + ' hinges · ' + inr(p.breakdown.HiP)];
     case 'hingeFunction': return [inr(RATES.hingeFn[o.id]) + ' per hinge', p.hinges + ' hinges · ' + inr(p.breakdown.HiP)];
-    case 'lighting': return [inr(RATES.lighting[o.id]) + ' per ft', round1(r.grossBase) + ' ft · ' + inr(p.breakdown.LP)];
-    case 'accessories': {
-      const q = Number(state.acc[o.id]) || 0;
-      return [inr(RATES.accessory[o.id]) + ' each', (q || 0) + ' in this quote · ' + inr(q * RATES.accessory[o.id])];
+    case 'lighting': return [inr(RATES.lighting[o.id]) + ' per project', 'priced once for the kitchen'];
+    case 'drawers': {
+      const q = Number(state.drawers[o.id]) || 0;
+      const r = RATES.drawers[o.id];
+      return [inr(r) + ' each', (q || 0) + ' in this quote · ' + inr(q * r)];
     }
   }
   return [];
@@ -1105,7 +1438,7 @@ const STEPS = [
     { key:'hingeFunction', label:'Function', opts:HINGE_FUNCTIONS }
   ] },
   { id:'lighting', key:'lighting', square:true, eyebrow:'Lighting', title:'Choose the lighting', opts:LIGHTING, hint:'Task and ambient light.' },
-  { id:'accessories', eyebrow:'Accessories', title:'Add accessories', opts:ACCESSORIES, c:4, cm:2, rh:270, rhm:165, multi:'acc', counted:true, hint:'Optional. Set the count for each one.' },
+  { id:'drawers', eyebrow:'Drawers', title:'Add drawer units', opts:DRAWERS, c:3, cm:1, rh:240, rhm:132, multi:'dwr', counted:true, hint:'Set how many of each type you need. Optional.' },
   { id:'details', eyebrow:'Details' },
   { id:'quote', eyebrow:'Quote' }
 ];
@@ -1129,7 +1462,7 @@ function complete(i = state.step){
 }
 function isOn(step, id){
   if(step.multi === 'units') return !!state.units[id];
-  if(step.multi === 'acc') return (Number(state.acc[id]) || 0) > 0;
+  if(step.multi === 'dwr') return (Number(state.drawers[id]) || 0) > 0;
   return state[step.key] === id;
 }
 const sizeOk = () => hasSize() && Number(state.h) > 0;
@@ -1151,7 +1484,7 @@ function visual(o){
 function optionCard(step, o, i){
   const on = isOn(step, o.id);
   const label = optLabel(step, o);
-  const q = step.counted ? (Number(state.acc[o.id]) || 0) : 0;
+  const q = step.counted ? (Number(state.drawers[o.id]) || 0) : 0;
   const detail = step.counted ? '' : `<span class="detail" aria-hidden="true"><b>${esc(o.name)}</b>${detailLines(step, o).map(t => `<span>${esc(t)}</span>`).join('')}</span>`;
   const inner = `<span class="ph">${visual(o)}${o.img ? `<span class="zoom" data-act="view" data-img="${o.img}" data-name="${esc(o.name)}" role="button" aria-label="View ${esc(o.name)} photo full size">⤢</span>` : ''}</span>
     <span class="meta">
@@ -1227,7 +1560,7 @@ function viewOptions(step){
   } else if(step.multi === 'units'){
     action = `<button class="btn" type="button" data-go="${state.step + 1}" ${complete(state.step) ? '' : 'disabled'}>Continue →</button>`;
   } else if(step.multi === 'acc'){
-    const any = Object.values(state.acc).some(n => Number(n) > 0);
+    const any = Object.values(state.drawers).some(n => Number(n) > 0);
     action = `<button class="btn" type="button" data-go="${state.step + 1}">${any ? 'Continue →' : 'Skip →'}</button>`;
   } else if(SKIP_GROUP[step.id]){
     action = `<button class="btn line" type="button" data-act="skip" data-group="${SKIP_GROUP[step.id]}">Skip</button>`;
@@ -1427,6 +1760,10 @@ function feedbackHtml(p){
     <p class="fb-status${sent ? ' ok' : ''}">${status}</p>
   </section>`;
 }
+function drawerSummary(p){
+  const d = state.drawers || {};
+  return DRAWERS.filter(x => Number(d[x.id]) > 0).map(x => d[x.id] + ' \u00d7 ' + x.name.toLowerCase()).join(' \u00b7 ') || 'none';
+}
 function groupedBill(p){
   const rows = [];
   const add = (label, detail, amount) => { if(amount > 0) rows.push({ label, detail, amount }); };
@@ -1439,14 +1776,14 @@ function groupedBill(p){
   add('Backsplash', p.splash.name + ', ' + Math.round(p.run.gross * 2) + ' sq ft', p.breakdown.BSP);
   add('Sink and tap', p.sinkMat.name + ' · ' + p.sinkT.name + ' · ' + p.faucet.name, p.breakdown.SP);
   add('Lighting', p.light.name, p.breakdown.LP);
-  add('Accessories', 'pull-outs and baskets', p.breakdown.AP);
+  add('Drawers', drawerSummary(p), p.breakdown.DP);
   add('Design charge 5%', '', p.design);
   return rows;
 }
 function quotePdfData(p){
   const layout = byId(LAYOUTS, state.layout) || byId(LAYOUTS, 'lshape');
   const units = UNITS.filter(u => state.units[u.id]).map(u => u.name).join(' + ');
-  const accs = ACCESSORIES.filter(a => Number(state.acc[a.id]) > 0).map(a => a.name + ' × ' + state.acc[a.id]).join(', ');
+  const dwrLine = drawerSummary(p);
   return {
     ref: state.lead ? state.lead.id : 'DRAFT',
     dateStr: state.lead ? new Date(state.lead.at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }) : '',
@@ -1462,7 +1799,7 @@ function quotePdfData(p){
       state.skip.faucet ? null : ['Tap', p.faucet.name],
       ['Hinges', p.hBrand.name + ' · ' + p.hFn.name],
       state.skip.lighting ? null : ['Lighting', p.light.name],
-      accs ? ['Accessories', accs] : null
+      dwrLine !== 'none' ? ['Drawers', dwrLine] : null
     ].filter(Boolean),
     rows: groupedBill(p),
     construction: p.construction, total: p.total,
@@ -1484,21 +1821,20 @@ async function downloadQuote(btn){
 function quoteCard(p){
   const layout = byId(LAYOUTS, state.layout) || byId(LAYOUTS, 'lshape');
   const units = UNITS.filter(u => state.units[u.id]).map(u => u.name).join(' + ');
-  const accs = ACCESSORIES.filter(a => Number(state.acc[a.id]) > 0)
-    .map(a => a.name + ' × ' + state.acc[a.id]).join(', ');
+  const dwrLine = drawerSummary(p);
   const picks = [
-    ['Shape', layout.name + ' · ' + state.l + ' × ' + state.b + ' × ' + state.h + ' ft'],
-    ['Storage', units],
-    ['Board and finish', p.board.name + ' + ' + p.finish.name + (p.glassOn ? ' · glass shutters' : '')],
-    ['Handles', p.handle.name],
-    state.skip.counter ? null : ['Worktop', p.counter.name],
-    state.skip.backsplash ? null : ['Backsplash', p.splash.name],
-    state.skip.sink ? null : ['Sink', p.sinkMat.name + ' · ' + p.sinkT.name],
-    state.skip.faucet ? null : ['Tap', p.faucet.name],
-    ['Hinges', p.hBrand.name + ' · ' + p.hFn.name],
-    state.skip.lighting ? null : ['Lighting', p.light.name],
-    accs ? ['Accessories', accs] : null
-  ].filter(Boolean);
+    ['shape', 'Shape', layout.name + ' · ' + state.l + ' × ' + state.b + ' × ' + state.h + ' ft'],
+    ['storage', 'Storage', units],
+    ['build', 'Board and finish', p.board.name + ' + ' + p.finish.name + (p.glassOn ? ' · glass shutters' : '')],
+    ['handles', 'Handles', p.handle.name],
+    ['worktop', 'Worktop', state.skip.counter ? 'Skipped' : p.counter.name],
+    ['backsplash', 'Backsplash', state.skip.backsplash ? 'Skipped' : p.splash.name],
+    ['sink', 'Sink', state.skip.sink ? 'Skipped' : p.sinkMat.name + ' · ' + p.sinkT.name],
+    ['tap', 'Tap', state.skip.faucet ? 'Skipped' : p.faucet.name],
+    ['hinges', 'Hinges', p.hBrand.name + ' · ' + p.hFn.name],
+    ['lighting', 'Lighting', state.skip.lighting ? 'Skipped' : p.light.name],
+    ['drawers', 'Drawers', dwrLine === 'none' ? 'None' : dwrLine]
+  ];
   const rows = groupedBill(p);
   const date = state.lead && state.lead.at
     ? new Date(state.lead.at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
@@ -1518,7 +1854,11 @@ function quoteCard(p){
 
     <div class="qc-picks">
       <h2>What you picked</h2>
-      <dl>${picks.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+      <dl>${picks.map(([k, label, v]) => `<div>
+        <dt>${esc(label)}</dt>
+        <dd>${esc(v)}</dd>
+        <button class="qc-edit" type="button" data-act="edit" data-k="${k}" aria-label="Change ${esc(label)}">Change</button>
+      </div>`).join('')}</dl>
     </div>
 
     <div class="qc-bill">
@@ -1555,7 +1895,7 @@ function viewQuote(){
         <p class="delivery ${state.lead.delivery || 'local'}">${state.lead.delivery === 'sent' ? 'Request sent to the studio.' : state.lead.delivery === 'sending' ? 'Sending your request to the studio…' : state.lead.delivery === 'failed' ? 'Could not reach the studio — your request is saved on this device.' : 'Saved on this device.'}</p>
       </div>
       <div class="doc-acts">
-        <button class="btn" type="button" data-act="wa">Share on WhatsApp</button>
+        ${CONFIG.whatsapp ? '<button class="btn" type="button" data-act="wa">Share on WhatsApp</button>' : ''}
                 <button class="btn line" type="button" data-act="edit">Edit choices</button>
         ${cal ? `<a class="btn" href="${esc(cal)}" target="_blank" rel="noopener">Book a site visit →</a>` : ''}
       </div>
@@ -1664,7 +2004,7 @@ function chosen(st){
     return names.length ? names.join(' + ') : '';
   }
   if(st.multi === 'acc'){
-    const n = ACCESSORIES.reduce((t, a) => t + (Number(state.acc[a.id]) || 0), 0);
+    const n = DRAWERS.reduce((t, a) => t + (Number(state.drawers[a.id]) || 0), 0);
     return n ? n + ' items' : '';
   }
   if(st.key){
@@ -1677,9 +2017,18 @@ function updateBar(){
   const i = state.step, p = price();
   $('back').disabled = i <= 1;
   $('total').textContent = inr(p.total);
-  $('estLbl').textContent = p.assumed ? 'Est. · ' + ROOM.l + '×' + ROOM.b + ' ft room' : 'Estimate';
+  $('estLbl').textContent = p.assumed ? 'Estimated price · assumed room' : 'Estimated price';
   $('dock').classList.toggle('gone', i >= DETAILS);
   $('dockStep').textContent = STEPS[i].eyebrow || '';
+  const total = LAST;
+  const no = $('stepNo');
+  if(no) no.textContent = (i >= 1 && i < DETAILS) ? 'Step ' + i + ' of ' + total : '';
+  const go = $('dockGo');
+  if(go){
+    const can = complete(i);
+    go.disabled = !can;
+    go.textContent = can ? 'Continue' : (SKIP_GROUP[STEPS[i].id] ? 'Skip' : 'Continue');
+  }
   $('dots').innerHTML = STEPS.slice(1).map((_, k) => {
     const n = k + 1;
     return `<i class="${n < i ? 'done' : n === i ? 'cur' : ''}"></i>`;
@@ -1783,16 +2132,16 @@ stage.addEventListener('click', e => {
     }
     if(step.multi === 'acc'){
       const card = opt.closest('.opt');
-      state.acc[id] = (Number(state.acc[id]) || 0) > 0 ? 0 : 1;
-      card.classList.toggle('on', state.acc[id] > 0);
-      opt.setAttribute('aria-pressed', state.acc[id] > 0);
+      state.drawers[id] = (Number(state.drawers[id]) || 0) > 0 ? 0 : 1;
+      card.classList.toggle('on', state.drawers[id] > 0);
+      opt.setAttribute('aria-pressed', state.drawers[id] > 0);
       const span = card.querySelector('.qty span');
-      if(span) span.textContent = state.acc[id];
+      if(span) span.textContent = state.drawers[id];
       const det = card.querySelector('.detail span:last-child');
-      if(det) det.textContent = state.acc[id] + ' in this quote · ' + inr(state.acc[id] * RATES.accessory[id]);
+      if(det) det.textContent = state.drawers[id] + ' in this quote · ' + inr(state.drawers[id] * RATES.drawers[id]);
       updateBar();
       const btn = document.querySelector('.head-action .btn');
-      if(btn) btn.textContent = ACCESSORIES.some(a => Number(state.acc[a.id]) > 0) ? 'Continue →' : 'Skip →';
+      if(btn) btn.textContent = DRAWERS.some(a => Number(state.drawers[a.id]) > 0) ? 'Continue →' : 'Skip →';
       save();
       return;
     }
@@ -1808,19 +2157,19 @@ stage.addEventListener('click', e => {
   const qty = e.target.closest('[data-act="qty"]');
   if(qty){
     const id = qty.dataset.id;
-    const n = Math.max(0, Math.min(9, (Number(state.acc[id]) || 0) + Number(qty.dataset.d)));
-    state.acc[id] = n;
+    const n = Math.max(0, Math.min(20, (Number(state.drawers[id]) || 0) + Number(qty.dataset.d)));
+    state.drawers[id] = n;
     const card = qty.closest('.opt');
     const span = card.querySelector('.qty span');
     if(span) span.textContent = n;
     const det = card.querySelector('.detail span:last-child');
-    if(det) det.textContent = n + ' in this quote · ' + inr(n * RATES.accessory[id]);
+    if(det) det.textContent = n + ' in this quote · ' + inr(n * RATES.drawers[id]);
     card.classList.toggle('on', n > 0);
     const hit = card.querySelector('[data-pick]');
     if(hit) hit.setAttribute('aria-pressed', n > 0);
     updateBar();
     const btn = document.querySelector('.head-action .btn');
-    if(btn) btn.textContent = ACCESSORIES.some(a => Number(state.acc[a.id]) > 0) ? 'Continue →' : 'Skip →';
+    if(btn) btn.textContent = DRAWERS.some(a => Number(state.drawers[a.id]) > 0) ? 'Continue →' : 'Skip →';
     save();
     return;
   }
@@ -1883,6 +2232,23 @@ stage.addEventListener('click', e => {
   }
   else if(a === 'wa') whatsapp();
   else if(a === 'print') window.print();
+  else if(a === 'edit') openSheet(act.dataset.k);
+  else if(a === 'close-sheet') closeSheet();
+  else if(a === 'sheet-pick'){
+    const k = act.dataset.k, id = act.dataset.id;
+    state[k] = id;
+    if(act.dataset.skip) state.skip[act.dataset.skip] = false;
+    if(k === 'counter' || k === 'backsplash' || k === 'lighting') state.skip[k === 'counter' ? 'counter' : k === 'backsplash' ? 'backsplash' : 'lighting'] = false;
+    save(); refreshSheet();
+  }
+  else if(a === 'sheet-unit'){ state.units[act.dataset.id] = !state.units[act.dataset.id]; save(); refreshSheet(); }
+  else if(a === 'sheet-board'){ state.board = act.dataset.id; save(); refreshSheet(); }
+  else if(a === 'sheet-glass'){ state.glass = !state.glass; save(); refreshSheet(); }
+  else if(a === 'sheet-qty'){
+    const id = act.dataset.id, d = Number(act.dataset.d);
+    state.drawers[id] = Math.max(0, Math.min(20, (Number(state.drawers[id]) || 0) + d));
+    save(); refreshSheet();
+  }
   else if(a === 'dl') downloadQuote(act);
   else if(a === 'reset'){
     if(planUrl) URL.revokeObjectURL(planUrl); planUrl = '';
@@ -1964,7 +2330,7 @@ stage.addEventListener('submit', e => {
       board: state.board, finish: state.finish, glass: !!state.glass, handle: state.handle, counter: state.counter,
       backsplash: state.backsplash, sinkMaterial: state.sinkMaterial, sinkType: state.sinkType,
       faucet: state.faucet, hingeBrand: state.hingeBrand, hingeFunction: state.hingeFunction,
-      lighting: state.lighting, acc: state.acc
+      lighting: state.lighting, drawers: state.drawers
     },
     breakdown: p.breakdown
   };
@@ -2101,6 +2467,11 @@ function sendQuote(withFeedback, opts){
   }
 }
 $('back').addEventListener('click', () => go(state.step - 1));
+$('dockGo').addEventListener('click', () => {
+  const cta = document.querySelector('.head-action .btn');
+  if(cta && !cta.disabled){ cta.click(); return; }
+  if(complete(state.step)) go(state.step + 1);
+});
 const dock = $('dock');
 $('dockCur').addEventListener('click', () => {
   const open = dock.classList.toggle('open');
@@ -2121,6 +2492,7 @@ $('photoView').addEventListener('click', e => {
   if(e.target.closest('.pv-close') || e.target.id === 'photoView') closePhoto();
 });
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closePhoto(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSheet(); });
 
 function whatsapp(){
   const p = price();
@@ -2134,9 +2506,230 @@ function whatsapp(){
   window.open('https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
 }
 
+
+/* ============================================================
+   INLINE EDITOR — change any choice from the quote page
+   ============================================================ */
+const EDIT_MAP = {
+  shape:      { title:'Shape', steps:[{ key:'layout', list:() => LAYOUTS }] },
+  storage:    { title:'Storage', units:true },
+  build:      { title:'Board and finish', build:true },
+  handles:    { title:'Handles', steps:[{ key:'handle', list:() => HANDLES }] },
+  worktop:    { title:'Worktop', steps:[{ key:'counter', list:() => COUNTERS, skip:'counter' }] },
+  backsplash: { title:'Backsplash', steps:[{ key:'backsplash', list:() => BACKSPLASH, skip:'backsplash' }] },
+  sink:       { title:'Sink', steps:[
+                  { key:'sinkMaterial', label:'Material', list:() => SINK_MATERIALS, skip:'sink', round:true },
+                  { key:'sinkType', label:'Bowl', list:() => SINK_TYPES, skip:'sink' }] },
+  tap:        { title:'Tap', steps:[{ key:'faucet', list:() => FAUCETS, skip:'faucet' }] },
+  hinges:     { title:'Hinges', steps:[
+                  { key:'hingeBrand', label:'Brand', list:() => HINGE_BRANDS },
+                  { key:'hingeFunction', label:'Function', list:() => HINGE_FUNCTIONS }] },
+  lighting:   { title:'Lighting', steps:[{ key:'lighting', list:() => LIGHTING, skip:'lighting' }] },
+  drawers:    { title:'Drawers', drawers:true }
+};
+
+function sheetPrice(key, id){
+  const p = price();
+  switch(key){
+    case 'layout': {
+      const r = runFor(id);
+      return round1(r.base) + ' ft base · ' + round1(r.wall) + ' ft wall';
+    }
+    case 'handle': return inr(RATES.handle[id]) + ' / door';
+    case 'counter': return RATES.counter[id] ? inr(RATES.counter[id]) + ' / sq ft' : 'Included';
+    case 'backsplash': return RATES.backsplash[id] ? inr(RATES.backsplash[id]) + ' / sq ft' : 'Included';
+    case 'sinkMaterial': return inr(RATES.sink[id][state.sinkType || DEFAULTS.sinkType]) + ' / sink';
+    case 'sinkType': return inr(RATES.sink[state.sinkMaterial || DEFAULTS.sinkMaterial][id]);
+    case 'faucet': return inr(RATES.faucet[id]);
+    case 'hingeBrand': return inr(RATES.hingeFn[state.hingeFunction || DEFAULTS.hingeFunction]) + ' / hinge';
+    case 'hingeFunction': return inr(RATES.hingeFn[id]) + ' / hinge';
+    case 'lighting': return inr(RATES.lighting[id]) + ' / project';
+    case 'finish': return inr(RATES.woodwork[state.board || DEFAULTS.board][id]) + ' / sq ft';
+    default: return '';
+  }
+}
+
+function sheetOption(key, o){
+  const on = state[key] === o.id;
+  return `<button type="button" class="sheet-opt${on ? ' on' : ''}" data-act="sheet-pick" data-k="${key}" data-id="${o.id}"${o.skip ? ` data-skip="${o.skip}"` : ''}>
+    <span class="so-name">${esc(o.name)}</span>
+    <span class="so-price">${esc(sheetPrice(key, o.id))}</span>
+    <span class="so-tick" aria-hidden="true">✓</span>
+  </button>`;
+}
+
+function sheetBody(k){
+  const cfg = EDIT_MAP[k];
+  if(!cfg) return '';
+  if(cfg.units){
+    return UNITS.map(u => {
+      const on = !!state.units[u.id];
+      return `<button type="button" class="sheet-opt${on ? ' on' : ''}" data-act="sheet-unit" data-id="${u.id}">
+        <span class="so-name">${esc(u.name)}</span>
+        <span class="so-price">${u.id === 'fridge' ? 'closes the gap' : 'carcass ' + (u.id === 'base' ? '×3' : u.id === 'wall' ? '×2' : '×' + (state.h - 7))}</span>
+        <span class="so-tick" aria-hidden="true">✓</span></button>`;
+    }).join('');
+  }
+  if(cfg.build){
+    const board = byId(BOARDS, state.board) || byId(BOARDS, DEFAULTS.board);
+    const seg = BOARDS.map(b => `<button type="button" class="segbtn${state.board === b.id ? ' on' : ''}" data-act="sheet-board" data-id="${b.id}">${esc(b.name)}</button>`).join('');
+    const fin = FINISHES.map(f => sheetOption('finish', f)).join('');
+    return `<div class="sheet-sub"><span class="ss-label">Board</span><div class="seg" style="flex:1">${seg}</div></div>
+      <div class="sheet-sub"><span class="ss-label">Finish</span></div>
+      <div class="sheet-grid">${fin}</div>
+      <button type="button" class="sheet-opt${state.glass ? ' on' : ''}" data-act="sheet-glass">
+        <span class="so-name">Glass shutters</span><span class="so-price">${inr(RATES.glass)} / sq ft · wall units</span>
+        <span class="so-tick" aria-hidden="true">✓</span></button>`;
+  }
+  if(cfg.drawers){
+    return DRAWERS.map(d => {
+      const q = Number(state.drawers[d.id]) || 0;
+      return `<div class="sheet-row${q ? ' on' : ''}">
+        <span class="sr-name">${esc(d.name)}<i>${esc(d.ds)}</i></span>
+        <span class="sr-price">${inr(RATES.drawers[d.id])}</span>
+        <span class="qty"><button type="button" data-act="sheet-qty" data-id="${d.id}" data-d="-1">−</button><b>${q}</b><button type="button" data-act="sheet-qty" data-id="${d.id}" data-d="1">+</button></span>
+      </div>`;
+    }).join('');
+  }
+  return cfg.steps.map(st => {
+    const head = st.label ? `<div class="sheet-sub"><span class="ss-label">${esc(st.label)}</span></div>` : '';
+    const opts = st.list().map(o => sheetOption(st.key, { ...o, skip: st.skip })).join('');
+    return head + `<div class="sheet-grid${st.round ? ' round' : ''}">${opts}</div>`;
+  }).join('');
+}
+
+function openSheet(k){
+  const cfg = EDIT_MAP[k];
+  if(!cfg) return;
+  $('sheetTitle').textContent = cfg.title;
+  $('sheetList').innerHTML = sheetBody(k);
+  $('sheetTotal').textContent = 'Quote ' + inr(price().total);
+  const sh = $('sheet');
+  sh.hidden = false;
+  sh.dataset.k = k;
+  document.body.classList.add('sheet-open');
+  requestAnimationFrame(() => sh.classList.add('in'));
+}
+function closeSheet(){
+  const sh = $('sheet');
+  if(!sh || sh.hidden) return;
+  sh.classList.remove('in');
+  document.body.classList.remove('sheet-open');
+  setTimeout(() => { sh.hidden = true; }, 180);
+}
+function refreshSheet(){
+  const sh = $('sheet');
+  if(!sh || sh.hidden) return;
+  draw();
+  const k = sh.dataset.k;
+  $('sheetList').innerHTML = sheetBody(k);
+  $('sheetTotal').textContent = 'Quote ' + inr(price().total);
+  openSheet(k);
+}
+
+
+/* sheet clicks live outside #stage, so they get their own listener */
+$('sheet').addEventListener('click', e => {
+  if(e.target === $('sheet')){ closeSheet(); return; }
+  const el = e.target.closest('[data-act]');
+  if(!el) return;
+  const a = el.dataset.act;
+  if(a === 'close-sheet'){ closeSheet(); return; }
+  if(a === 'sheet-pick'){
+    const k = el.dataset.k, id = el.dataset.id;
+    state[k] = id;
+    if(el.dataset.skip) state.skip[el.dataset.skip] = false;
+    if(k === 'counter' || k === 'backsplash' || k === 'lighting') state.skip[k] = false;
+    save(); refreshSheet(); return;
+  }
+  if(a === 'sheet-unit'){ state.units[el.dataset.id] = !state.units[el.dataset.id]; save(); refreshSheet(); return; }
+  if(a === 'sheet-board'){ state.board = el.dataset.id; save(); refreshSheet(); return; }
+  if(a === 'sheet-glass'){ state.glass = !state.glass; save(); refreshSheet(); return; }
+  if(a === 'sheet-qty'){
+    const id = el.dataset.id, d = Number(el.dataset.d);
+    state.drawers[id] = Math.max(0, Math.min(20, (Number(state.drawers[id]) || 0) + d));
+    save(); refreshSheet(); return;
+  }
+});
+
 if(/[?&]leads=1/.test(location.search)) drawLeads();
 else draw();
 scheduleAutoSend();
+if(/[?&]selftest=lead/.test(location.search)) leadSelfTest();
+
+/* Opens from ?selftest=lead - posts one sample lead through the same path the
+   quote uses, then tells you where to look. Remove the query string afterwards. */
+function leadSelfTest(){
+  const box = document.createElement('pre');
+  box.style.cssText = 'position:fixed;inset:16px;z-index:9999;margin:0;padding:20px;background:#141312;color:#F3F0EA;'
+    + 'font:12.5px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;border:1px solid #3a3630;border-radius:12px;overflow:auto';
+  document.body.appendChild(box);
+  const key = String(CONFIG.leadAccessKey || '').trim();
+  const lines = [
+    'HOMESIC - lead delivery self test',
+    '',
+    'endpoint : ' + (CONFIG.leadEndpoint || '(none)'),
+    'key      : ' + (key ? key.slice(0, 8) + '...' + key.slice(-4) : '(empty)'),
+    'whatsapp : ' + (CONFIG.whatsapp || '(not set)'),
+    ''
+  ];
+  if(!key || !CONFIG.leadEndpoint){
+    lines.push('RESULT: no key or endpoint set - leads cannot be delivered.');
+    box.textContent = lines.join('\n');
+    return;
+  }
+  if(key === 'd411e48a-e577-490c-993e-819d53082e91'){
+    lines.push('WARNING: this is the key that shipped with the template.');
+    lines.push('Leads are going to that account, not to you. Replace it with your own key.');
+    lines.push('');
+  }
+  lines.push('Posting a sample lead now...');
+  box.textContent = lines.join('\n');
+
+  const payload = {
+    access_key: key,
+    subject: 'Homesic estimator - test lead',
+    from_name: CONFIG.leadCompany || 'Homesic website',
+    name: 'Test lead', phone: '0000000000', city: 'Test', quote_id: 'TEST-' + Date.now(),
+    total: price().total, mode: 'self test',
+    message: 'This is a test from the Homesic estimator. If you can read this, leads are working.'
+  };
+  const formPost = /web3forms\.com/i.test(CONFIG.leadEndpoint);
+  if(formPost){
+    const wf = $('wfForm');
+    wf.action = CONFIG.leadEndpoint;
+    wf.innerHTML = '';
+    Object.keys(payload).forEach(k => {
+      const el = document.createElement('input');
+      el.type = 'hidden'; el.name = k; el.value = String(payload[k]);
+      wf.appendChild(el);
+    });
+    wf.submit();
+    lines.push('');
+    lines.push('Sent as a normal form post (Web3Forms blocks scripted reads, so the');
+    lines.push('browser cannot confirm it). Check that inbox in a few seconds:');
+    lines.push('   - a "Homesic estimator - test lead" email means you are live.');
+    lines.push('   - nothing means the key is wrong or belongs to another account.');
+    box.textContent = lines.join('\n');
+  } else {
+    fetch(CONFIG.leadEndpoint, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(async r => {
+      const body = await r.text();
+      lines.push('');
+      lines.push('HTTP ' + r.status);
+      lines.push(body.slice(0, 400));
+      lines.push(r.ok ? 'RESULT: accepted - check the inbox.' : 'RESULT: rejected - check the key and form id.');
+      box.textContent = lines.join('\n');
+    }).catch(e => {
+      lines.push('');
+      lines.push('Network error: ' + e.message);
+      lines.push('RESULT: could not reach the endpoint.');
+      box.textContent = lines.join('\n');
+    });
+  }
+}
 </script>
 </body>
 </html>
